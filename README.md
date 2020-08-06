@@ -3,7 +3,7 @@
 代码来源链接: https://github.com/liangkangnan/tinyriscv.   
 
 # RISC-V处理器
-本项目实现的是一个单核32位的小型RISC-V处理器核(tinyriscv)，采用verilog语言编写。设计目标是对标ARM Cortex-M3系列处理器。tinyriscv有以下特点：
+本项目RISC-V处理器采用的是一个单核32位的小型RISC-V处理器核(tinyriscv)，verilog语言编写，tinyriscv有以下特点：
 
 1. 支持RV32IM指令集，通过RISC-V指令兼容性测试；
 3. 采用三级流水线，即取指，译码，执行；
