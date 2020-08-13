@@ -5,3 +5,7 @@
 
 tools/GNU_MCU_Eclipse/
 tools/gnu-mcu-eclipse-riscv-none-gcc-8.2.0-2.2-20190521-0004-win64
+tests/example/timer2_vrf/BinToMem_CLI.exe
+tests/example/timer3_vrf/BinToMem_CLI.exe
+tests/example/rand0_vrf/BinToMem_CLI.exe
+tests/example/rand1_vrf/BinToMem_CLI.exe
