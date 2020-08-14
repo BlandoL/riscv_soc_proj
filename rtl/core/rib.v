@@ -143,7 +143,7 @@ module rib(
 
     // 仲裁逻辑
     // 固定优先级仲裁机制
-    // 优先级由高到低：主设备0，主设备2，主设备1
+    // 优先级由高到低：主设备3，主设备0，主设备2，主设备1
     always @ (*) begin
         if (rst == `RstEnable) begin
             next_grant = grant1;

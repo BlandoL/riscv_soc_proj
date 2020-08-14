@@ -1,5 +1,5 @@
 # riscv_soc_proj
-本项目来源于github网站上liangkangnan的tinyriscv工程，主要是想利用此RISC-V核进行SOC芯片设计，学习如何在RISC-V上挂接一些外设或者IP核.   
+本项目来源于github网站上liangkangnan的tinyriscv工程，主要是想利用此RISC-V核进行SOC芯片设计，学习如何在RISC-V上挂接一些外设或者IP核, 学习软硬件设计方法。   
 代码来源链接: https://github.com/liangkangnan/tinyriscv.   
 
 # RISC-V处理器
@@ -39,7 +39,7 @@ tinyriscv目前外挂了6个外设，每个外设的空间大小为256MB，地�
 
 <img src="./pic/addr_alloc.jpg" alt="地址空间分配" style="zoom:70%;" />
 
-# 该工程中存在的问题
+# project中存在的问题
 1. 总线上的读写行为有问题，只有写的操作，没有读的操作；    
 2. 地址分配不好，不利于扩展，限制了可增加模块的数量，而且也造成了空间的浪费；   
 3. 每个外设模块尽可能做一个Clock gating的操作，增加功耗的控制开关，在不开时尽可能节省功耗；    

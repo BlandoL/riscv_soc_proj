@@ -7,6 +7,7 @@
 +incdir+../../rtl/core/
 +incdir+../../rtl/debug/
 +incdir+../../rtl/perips/
++incdir+../../rtl/lib/
 +incdir+../../tb/
 
 
@@ -24,12 +25,6 @@
 ../../rtl/debug/jtag_top.v
 ../../rtl/debug/jtag_driver.v
 ../../rtl/debug/uart_debug.v
-../../rtl/perips/gpio.v
-../../rtl/perips/timer.v
-../../rtl/perips/uart.v
-../../rtl/perips/spi.v
-../../rtl/perips/ram.v
-../../rtl/perips/rom.v
 ../../rtl/core/regs.v
 ../../rtl/core/csr_reg.v
 ../../rtl/core/div.v
@@ -45,7 +40,27 @@
 ../../rtl/core/id.v
 
 
+//-------------------------------
+// peripheral
+//-------------------------------
+../../rtl/perips/gpio.v
+../../rtl/perips/uart.v
+../../rtl/perips/spi.v
+../../rtl/perips/ram.v
+../../rtl/perips/rom.v
+//../../rtl/perips/timer.v
+../../rtl/perips/regional_top.v
+../../rtl/perips/icb_dec.v
+../../rtl/perips/perp_region/perips_top.v
+../../rtl/perips/perp_region/timer.v
+../../rtl/perips/perp_region/timer_multf.v
+../../rtl/perips/perp_region/rand_16b.v
+../../rtl/perips/perp_region/rand_wcfg.v
 
 
+//-------------------------------
+// standcell
+//-------------------------------
+-v ../../rtl/lib/smic18.v
 
 

@@ -217,14 +217,27 @@ module tinyriscv_soc_top(
     );
 
     // timer模块例化
-    timer timer_0(
+    //timer timer_0(
+    //    .clk(clk),
+    //    .rst(rst),
+    //    .data_i(s2_data_o),
+    //    .addr_i(s2_addr_o),
+    //    .we_i(s2_we_o),
+    //    .data_o(s2_data_i),
+    //    .int_sig_o(timer0_int),
+    //    .req_i(s2_req_o),
+    //    .ack_o(s2_ack_i)
+    //);
+
+    // regional_top inst
+    regional_top regional_top_0(
         .clk(clk),
         .rst(rst),
         .data_i(s2_data_o),
         .addr_i(s2_addr_o),
         .we_i(s2_we_o),
         .data_o(s2_data_i),
-        .int_sig_o(timer0_int),
+        .timer_int(timer0_int),
         .req_i(s2_req_o),
         .ack_o(s2_ack_i)
     );

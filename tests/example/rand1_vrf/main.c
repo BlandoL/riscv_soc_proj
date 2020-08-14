@@ -6,6 +6,11 @@
 //******************************************************************************//
 #include <stdint.h>
 
+//----------------------------------------------------------------------//
+// define SIMULATION 	 : for simulation mode
+// not define SIMULATION : for actual test mode
+//----------------------------------------------------------------------//
+
 #include "../include/risc_v.h"
 #include "../include/utils.h"
 
@@ -23,7 +28,9 @@ void timer0_irq_handler()
     seed = seed ^ 0x59028381;  
     RV_RAND0->SEED = seed;  
     RV_RAND0->CON = BIT(0) | BIT(1);     // enable rand and load seed pls
-
+	
+	RV_TIMER2->CNT = 0x66;
+	RV_TIMER2->CNT = RV_RAND0->SEED;
     // clear int pending and start timer
 	RV_TIMER1->CON = BIT(8) | BIT(1) | BIT(0);
     count++;
@@ -34,6 +41,7 @@ void timer0_irq_handler()
 //----------------------------------------------------------------------//
 int main()
 {
+	unsigned int para;
     count = 0;
 	seed = 0x3759321A;
 
@@ -43,7 +51,13 @@ int main()
 
     RV_TIMER1->PERIOD = 800;     // 10us period
     RV_TIMER1->CON = 0x03 | BIT(8);     // enable interrupt and start timer
-
+	
+	RV_TIMER2->CNT = 0x55;
+	para = RV_TIMER1->CON;
+	RV_TIMER2->CNT = 0x44;
+	para = RV_RAND1->SEED;
+	RV_TIMER2->CNT = para;
+	
     while (1) {
         if (count == 20) {
             RV_TIMER1->CON = 0x00;   // stop timer

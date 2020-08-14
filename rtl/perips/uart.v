@@ -27,7 +27,7 @@ module uart(
     input wire[31:0] data_i,
 
     output reg[31:0] data_o,
-    output reg ack_o,
+    output wire      ack_o,
 	output wire tx_pin,
     input wire rx_pin
 
@@ -89,6 +89,7 @@ module uart(
     reg[31:0] uart_rx;
 
     assign tx_pin = tx_reg;
+    assign ack_o = req_i;
 
 
     // 写寄存器

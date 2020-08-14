@@ -20,18 +20,20 @@
 // 32 bits count up timer module
 module timer(
 
-    input wire clk,
-    input wire rst,
+    input   wire            icb_wr,
+    input   wire [9:0]      icb_wadr,
+    input   wire [31:0]     icb_wdat,
+    output  wire            icb_wack,
 
-    input wire[31:0] data_i,
-    input wire[31:0] addr_i,
-    input wire we_i,
-    input wire req_i,
+    input   wire            icb_rd,
+    input   wire [9:0]      icb_radr,
+    output  wire [31:0]     icb_rdat,
+    output  wire            icb_rack,
 
-    output reg[31:0] data_o,
-    output wire int_sig_o,
-    output wire ack_o
+    output  wire            int_sig_o,
 
+    input   wire            clk,
+    input   wire            rst
     );
 
     localparam REG_CTRL = 4'h0;
@@ -51,10 +53,22 @@ module timer(
     // timer expired value
     // addr offset: 0x08
     reg[31:0] timer_value;
+    reg[31:0] data_o;
+
+    // icb convert wishbone
+    wire req_i = icb_wr | icb_rd;
+    wire we_i = icb_wr;
+    wire [9:0] addr_i = icb_wr ? icb_wadr :
+                        icb_rd ? icb_radr : 10'd0;
+    wire [31:0] data_i = icb_wr ? icb_wdat :
+                         icb_rd ? icb_rdat : 32'd0;
+    assign icb_wack = icb_wr;
+    assign icb_rack = icb_rd;
+    assign icb_rdat = data_o;
 
 
     assign int_sig_o = ((timer_ctrl[2] == 1'b1) && (timer_ctrl[1] == 1'b1))? `INT_ASSERT: `INT_DEASSERT;
-    assign ack_o = req_i;
+    
 
     // counter
     always @ (posedge clk) begin
