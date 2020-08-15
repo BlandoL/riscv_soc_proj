@@ -15,6 +15,8 @@ output  reg  [31:0]     data_o,
 output  wire            ack_o,
 
 output  wire            timer_int,
+output  wire            uart_tx,
+input   wire            uart_rx,
 
 input   wire            clk,
 input   wire            rst 
@@ -100,6 +102,8 @@ perips_top  perips_top(
     .icb_rack       (icb_rack_bank0             ),
 
     .timer_int      (timer_int                  ),
+    .uart_tx        (uart_tx                    ),
+    .uart_rx        (uart_rx                    ),
 
     .clk            (clk),
     .rst            (rst)

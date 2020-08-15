@@ -156,6 +156,10 @@ module tinyriscv_soc_top(
     // 低电平表示已经halt住CPU
     assign halted_ind = ~jtag_halt_req_o;
 
+    // uart test
+    //-----------------------------------------------------
+    wire uart_tx;
+    wire uart_rx;
 
     always @ (posedge clk) begin
         if (rst == `RstEnable) begin
@@ -231,15 +235,19 @@ module tinyriscv_soc_top(
 
     // regional_top inst
     regional_top regional_top_0(
-        .clk(clk),
-        .rst(rst),
         .data_i(s2_data_o),
         .addr_i(s2_addr_o),
         .we_i(s2_we_o),
         .data_o(s2_data_i),
-        .timer_int(timer0_int),
         .req_i(s2_req_o),
-        .ack_o(s2_ack_i)
+        .ack_o(s2_ack_i),
+
+        .timer_int(timer0_int),
+        .uart_tx(uart_tx),
+        .uart_rx(uart_rx),
+
+        .clk(clk),
+        .rst(rst)
     );
 
     // uart模块例化

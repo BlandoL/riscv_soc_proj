@@ -9,6 +9,8 @@
 #include "../include/risc_v.h"
 #include "../include/timer.h"
 #include "../include/utils.h"
+#include "../include/uart.h"
+#include "../include/xprintf.h"
 
 #define SFR(sfr, start, len, dat) (sfr = sfr & ~((~(0xffffffff<<len))<<start) | ((dat & (~(0xffffffff<<len)))<<start))
 #define BIT(n)                    (1 << n)
@@ -70,7 +72,8 @@ int main()
     RV_TIMER2->CNT = 0x11;     // 10us period
 	while(rcnt < 8) rcnt ++;
 	rcnt = 0;
-	RV_TIMER2->CNT = RV_TIMER0->PERIOD;     
+	rcnt = RV_TIMER0->PERIOD;
+	RV_TIMER2->CNT = rcnt;     
     while (1) {
         if (count == 20) {
             RV_TIMER0->CON = 0x00;   // stop timer

@@ -18,6 +18,8 @@ output  reg  [31:0]     icb_rdat,
 output  wire            icb_rack,
 
 output  wire            timer_int,
+output  wire            uart_tx,
+input   wire            uart_rx,
 
 input   wire            clk,
 input   wire            rst 
@@ -55,6 +57,10 @@ wire [31:0]     icb_rdat_tmr3;
 wire            icb_wack_tmr3;
 wire            icb_rack_tmr3;
 
+wire [31:0]     icb_rdat_uart0;
+wire            icb_wack_uart0;
+wire            icb_rack_uart0;
+
 wire [31:0]     icb_rdat_rand0;
 wire            icb_wack_rand0;
 wire            icb_rack_rand0;
@@ -86,10 +92,10 @@ assign timer_int = timer0_int | timer1_int | timer2_int |
                    timer3_int;
 assign icb_wack  = icb_wack_tmr0 | icb_wack_tmr1 | icb_wack_tmr2 |
                    icb_wack_tmr3 | icb_wack_rand0 | icb_wack_rand1 |
-                   icb_wack_rand2 | icb_wack_rand3;
+                   icb_wack_rand2 | icb_wack_rand3 | icb_wack_uart0;
 assign icb_rack  = icb_rack_tmr0 | icb_rack_tmr1 | icb_rack_tmr2 |
                    icb_rack_tmr3 | icb_rack_rand0 | icb_rack_rand1 |
-                   icb_rack_rand2 | icb_rack_rand3;
+                   icb_rack_rand2 | icb_rack_rand3 | icb_rack_uart0;
 
 
 //****************************************************************
@@ -115,6 +121,7 @@ begin
         icb_rack_tmr1    : icb_rdat = icb_rdat_tmr1;
         icb_rack_tmr2    : icb_rdat = icb_rdat_tmr2;
         icb_rack_tmr3    : icb_rdat = icb_rdat_tmr3;
+        icb_rack_uart0   : icb_rdat = icb_rdat_uart0;
         icb_rack_rand0   : icb_rdat = icb_rdat_rand0;
         icb_rack_rand1   : icb_rdat = icb_rdat_rand1;
         icb_rack_rand2   : icb_rdat = icb_rdat_rand2;
@@ -206,6 +213,29 @@ timer_multf   timer3(
     .icb_rack       (icb_rack_tmr3                      ),
 
     .timer_int      (timer3_int                         ),
+
+    .clk            (clk),
+    .rst            (rst)
+);
+
+
+//****************************************************************
+//
+// peripheral device 4 : uart0
+//
+//****************************************************************
+uart_mdy   uart0(
+    .icb_wr         (icb_wbus_dev[`rv_uart0_base]       ),
+    .icb_wadr       (icb_wadr[9:0]                      ),
+    .icb_wdat       (icb_wdat                           ),
+    .icb_wack       (icb_wack_uart0                     ),
+    .icb_rd         (icb_rbus_dev[`rv_uart0_base]       ),
+    .icb_radr       (icb_radr[9:0]                      ),
+    .icb_rdat       (icb_rdat_uart0                     ),
+    .icb_rack       (icb_rack_uart0                     ),
+
+    .uart_txpin     (uart_tx                            ),
+    .uart_rxpin     (uart_rx                            ),
 
     .clk            (clk),
     .rst            (rst)

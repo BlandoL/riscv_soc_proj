@@ -21,7 +21,7 @@
 //----------------------------------------------------------------------//
 // Peripherals Region
 //----------------------------------------------------------------------//
-// timer
+//---------------------- timer --------------------------
 typedef struct{
     _RW _u32   CON;
     _RW _u32   CNT;
@@ -44,7 +44,28 @@ typedef struct{
 #define RV_TIMER3_BASE          (perp_bank + map_adr(0x003, 0))
 #define RV_TIMER3               ((RV_TIMER_Typedef *)RV_TIMER3_BASE)
 
-// rand
+//---------------------- uart --------------------------
+typedef struct{
+    _RW _u32   CON;
+    _RW _u32   STATUS;
+    _RW _u32   BAUD;
+    _RW _u32   TXDAT;
+    _RW _u32   RXDAT;
+} RV_PERP_UART_Typedef;
+
+// uart0
+#define RV_PERP_UART_BASE       (perp_bank + map_adr(0x004, 0))
+#define RV_PERP_UART0           ((RV_PERP_UART_Typedef *)RV_PERP_UART_BASE)
+
+void uart_init();
+void uart_putc(uint8_t c);
+uint8_t uart_getc();
+
+
+
+
+
+//---------------------- rand --------------------------
 typedef struct{
     _RW _u32   CON;
     _RW _u32   SEED;
@@ -76,6 +97,7 @@ typedef struct{
     _RW _u32   STATUS;
     _RW _u32   BAUD;
     _RW _u32   TXDAT;
+    _RW _u32   RXDAT;
 } RV_UART_Typedef;
 
 #define RV_UART0_BASE           (0x30000000)
