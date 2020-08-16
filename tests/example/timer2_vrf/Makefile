@@ -3,11 +3,11 @@ RISCV_ABI := ilp32
 RISCV_MCMODEL := medlow
 
 
-TARGET = timer_int
+TARGET = gpio
 
 
-CFLAGS += -DSIMULATION
-CFLAGS += -Os
+#CFLAGS += -DSIMULATION
+#CFLAGS += -O2
 #ASM_SRCS +=
 #LDFLAGS +=
 #INCLUDES += -I.

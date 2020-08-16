@@ -51,50 +51,19 @@ int main()
     count = 0;
 	unsigned int rcnt = 0;
 
-#ifdef SIMULATION
-	#if 0
-		RV_TIMER2->PERIOD = 500;     // 10us period
-		RV_TIMER2->CON = 0x03 | BIT(8);     // enable interrupt and start timer
-		while (1) {
-			if (count == 20) {
-				RV_TIMER2->CON = 0x00;   // stop timer
-				count = 0;
-
-				set_test_pass();
-				break;
-			}
-		}
-	#endif
-
     RV_TIMER0->PERIOD = 200;     // 10us period
     RV_TIMER0->CON = 0x03 | BIT(2);     // enable interrupt and start timer
 
     RV_TIMER2->CNT = 0x11;     // 10us period
-	while(rcnt < 8) rcnt ++;
-	rcnt = 0;
 	rcnt = RV_TIMER0->PERIOD;
 	RV_TIMER2->CNT = rcnt;     
     while (1) {
         if (count == 20) {
             RV_TIMER0->CON = 0x00;   // stop timer
             count = 0;
-			RV_TIMER2->CNT = TIMER0_REG(TIMER0_VALUE);     // 10us period
-
-            set_test_pass();
-            break;
+			RV_TIMER3->CNT = TIMER0_REG(TIMER0_VALUE);     // 10us period
         }
     }
-#else
-    RV_TIMER2->PERIOD = 500000;     // 10us period
-    RV_TIMER2->CON = 0x03 | BIT(8);     // enable interrupt and start timer
-
-    while (1) {
-        // 500ms
-        if (count == 50) {
-            count = 0;
-        }
-    }
-#endif
 
     return 0;
 }

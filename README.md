@@ -1,6 +1,6 @@
 # riscv_soc_proj
 本项目来源于github网站上liangkangnan的tinyriscv工程，主要是想利用此RISC-V核进行SOC芯片设计，学习如何在RISC-V上挂接一些外设或者IP核, 学习软硬件设计方法。   
-代码来源链接: https://github.com/liangkangnan/tinyriscv.   
+代码链接: https://github.com/liangkangnan/tinyriscv  或者 https://gitee.com/liangkangnan/tinyriscv#only_comment_project
 
 # RISC-V处理器
 本项目RISC-V处理器采用的是一个单核32位的小型RISC-V处理器核(tinyriscv)，verilog语言编写，tinyriscv有以下特点：
@@ -39,11 +39,15 @@ tinyriscv目前外挂了6个外设，每个外设的空间大小为256MB，地�
 
 <img src="./pic/addr_alloc.jpg" alt="地址空间分配" style="zoom:70%;" />
 
-# project中存在的问题
-1. 总线上的读写行为有问题，只有写的操作，没有读的操作；    
-2. 地址分配不好，不利于扩展，限制了可增加模块的数量，而且也造成了空间的浪费；   
-3. 每个外设模块尽可能做一个Clock gating的操作，增加功耗的控制开关，在不开时尽可能节省功耗；    
-4. 
+改进点：将timer0模块的地址进行了细分，可以方便添加更多的模块。
+地址：0x2000_0000~0x2FFF_FFFF    
+分成了256个区域：由地址的第20位到第27位来区分；
+每个区域最大可支持1024个模块，每个模块最多可支持256个寄存器配置；
+
+# project中可以改进的点    
+1. 地址分配不好，不利于扩展，限制了可增加模块的数量，而且也造成了空间的浪费；   
+2. 每个外设模块尽可能做一个Clock gating的操作，增加功耗的控制开关，在不开时尽可能节省功耗；    
+3. 
 
 
 
